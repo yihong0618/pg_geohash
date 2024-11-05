@@ -1,0 +1,37 @@
+[package]
+name = "pg_geohash"
+version = "0.0.1"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[[bin]]
+name = "pgrx_embed_pg_geohash"
+path = "./src/bin/pgrx_embed.rs"
+
+[features]
+default = ["pg13"]
+pg13 = ["pgrx/pg13", "pgrx-tests/pg13" ]
+pg14 = ["pgrx/pg14", "pgrx-tests/pg14" ]
+pg15 = ["pgrx/pg15", "pgrx-tests/pg15" ]
+pg16 = ["pgrx/pg16", "pgrx-tests/pg16" ]
+pg17 = ["pgrx/pg17", "pgrx-tests/pg17" ]
+pg_test = []
+
+[dependencies]
+geo-types = "0.7.13"
+geohash = "0.13.1"
+pgrx = "=0.12.8"
+
+[dev-dependencies]
+pgrx-tests = "=0.12.8"
+
+[profile.dev]
+panic = "unwind"
+
+[profile.release]
+panic = "unwind"
+opt-level = 3
+lto = "fat"
+codegen-units = 1
